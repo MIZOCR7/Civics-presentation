@@ -1,0 +1,96 @@
+{
+  "title": "Civics Review - Doors 1 & 2",
+  "defaultQuestionTime": 20,
+  "questions": [
+    {
+      "q": "What is the supreme law of the land in the United States?",
+      "options": ["The Constitution", "The Declaration of Independence", "The Bill of Rights", "The Magna Carta"],
+      "answer": 0
+    },
+    {
+      "q": "How many branches of government does the U.S. federal system have?",
+      "options": ["Two", "Three", "Four", "Five"],
+      "answer": 1
+    },
+    {
+      "q": "Which branch of government makes the laws?",
+      "options": ["Judicial", "Executive", "Legislative", "Federal"],
+      "answer": 2
+    },
+    {
+      "q": "Who is the head of the executive branch of the U.S. government?",
+      "options": ["The Chief Justice", "The Speaker", "The President", "The Senate"],
+      "answer": 2
+    },
+    {
+      "q": "What do we call the first ten amendments to the Constitution?",
+      "options": ["The Bill of Rights", "The Articles", "The Preamble", "The Federalist Papers"],
+      "answer": 0
+    },
+    {
+      "q": "How many U.S. senators are there in total?",
+      "options": ["50", "100", "435", "270"],
+      "answer": 1
+    },
+    {
+      "q": "Citizens must be at least how old to vote in a federal election?",
+      "options": ["16", "18", "21", "25"],
+      "answer": 1
+    },
+    {
+      "q": "Which amendment protects freedom of speech, religion and the press?",
+      "options": ["First", "Second", "Fifth", "Tenth"],
+      "answer": 0
+    },
+    {
+      "q": "What is the highest court in the United States?",
+      "options": ["The Court of Appeals", "The District Court", "The Supreme Court", "The State Court"],
+      "answer": 2
+    },
+    {
+      "q": "A change or addition to the Constitution is called a(n)...",
+      "options": ["Amendment", "Article", "Statute", "Veto"],
+      "answer": 0
+    },
+    {
+      "q": "How long is one term for a U.S. president?",
+      "options": ["2 years", "4 years", "6 years", "8 years"],
+      "answer": 1
+    },
+    {
+      "q": "What power lets a president reject a bill passed by Congress?",
+      "options": ["Pardon", "Veto", "Filibuster", "Impeachment"],
+      "answer": 1
+    },
+    {
+      "q": "Which level of government handles local roads and schools most directly?",
+      "options": ["Federal", "State and local", "International", "Military"],
+      "answer": 1
+    },
+    {
+      "q": "What is the principle that divides power between a central government and the states?",
+      "options": ["Monarchy", "Federalism", "Socialism", "Absolutism"],
+      "answer": 1
+    },
+    {
+      "q": "In a democracy, the final source of government power is...",
+      "options": ["The army", "The king", "The people", "The courts"],
+      "answer": 2
+    },
+    {
+      "q": "\"Consent of the governed\" means the government gets its authority from...",
+      "options": ["Its own rulers", "The citizens", "Foreign allies", "Tradition alone"],
+      "answer": 1
+    },
+    {
+      "q": "Which document announced the American colonies were free from Britain?",
+      "options": ["The Constitution", "The Declaration of Independence", "The Bill of Rights", "The Gettysburg Address"],
+      "answer": 1
+    },
+    {
+      "q": "What is the job of the judicial branch?",
+      "options": ["Enforce laws", "Make laws", "Interpret laws", "Collect taxes"],
+      "answer": 2
+    }
+  ]
+}

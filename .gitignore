@@ -1,0 +1,14 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+
+# Logs & scratch
+*.log
+npm-debug.log*
+
+# Local workspace metadata (not part of the app)
+.freebuff/
+
+# Dependencies
+node_modules/

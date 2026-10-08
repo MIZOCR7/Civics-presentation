@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1a0c3d" />
+<title>QuizRush - Join a game</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%237c4dff'/><stop offset='1' stop-color='%235b1fb0'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><path d='M57 12 28 57h17l-4 31 29-46H55z' fill='%23ffd166'/></svg>" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div class="floaters" id="floaters"></div>
+
+<div class="screen center-screen">
+  <div class="join-shell">
+    <h1 class="brand">QuizRush<span class="dot">.</span></h1>
+    <p class="brand-sub" id="gameTitle">Live classroom quiz</p>
+
+    <div class="card join-card" style="margin-top:24px">
+      <div id="joinForm">
+        <div class="avatar-parade" id="parade"></div>
+
+        <label class="field-label" for="pinInput">Game PIN</label>
+        <input id="pinInput" class="field pin-display" inputmode="numeric" pattern="[0-9]*" maxlength="6"
+               placeholder="123456" autocomplete="off" style="text-align:center;font-size:28px" />
+
+        <label class="field-label" for="nameInput" style="margin-top:20px">Your nickname</label>
+        <input id="nameInput" class="field" maxlength="18" placeholder="Type your name" autocomplete="off" />
+
+        <p class="error-text" id="errorText"></p>
+        <button class="btn green" id="joinBtn" style="margin-top:6px">Enter</button>
+      </div>
+
+      <div id="joinSpinner" class="hidden" style="text-align:center;padding:34px 0">
+        <div class="spinner"></div>
+        <p style="font-weight:800;color:#5b1fb0;margin:18px 0 0">Letting you in…</p>
+      </div>
+    </div>
+
+    <p class="host-link">Teacher? <a href="/host">Open the host screen</a></p>
+  </div>
+</div>
+
+<script src="/js/common.js"></script>
+<script>
+  addFloaters($('#floaters'), 12);
+
+  const params = new URLSearchParams(location.search);
+  const pinInput = $('#pinInput');
+  const nameInput = $('#nameInput');
+  const errorText = $('#errorText');
+  const joinBtn = $('#joinBtn');
+
+  // A teaser of the animal buddies players are given at random.
+  const parade = [0, 5, 15, 8, 13, 21, 2, 18];
+  $('#parade').innerHTML = parade.map((i) => avatarHtml(i)).join('');
+
+  if (params.get('pin')) pinInput.value = params.get('pin');
+  nameInput.value = localStorage.getItem('qr_last_name') || '';
+
+  fetch('/api/questions').then(r => r.json()).then(d => {
+    if (d && d.title) $('#gameTitle').textContent = d.title;
+  }).catch(() => {});
+
+  pinInput.addEventListener('input', () => {
+    pinInput.value = pinInput.value.replace(/\D/g, '').slice(0, 6);
+    errorText.textContent = '';
+  });
+  nameInput.addEventListener('input', () => { errorText.textContent = ''; });
+
+  pinInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') nameInput.focus(); });
+  nameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doJoin(); });
+
+  // Rejoin the same game after a refresh / phone lock.
+  const saved = JSON.parse(localStorage.getItem('qr_player') || 'null');
+  if (saved && saved.pin && !params.get('pin')) pinInput.value = saved.pin;
+
+  async function doJoin() {
+    const pin = pinInput.value.trim();
+    const name = nameInput.value.trim();
+    if (pin.length !== 6) { errorText.textContent = 'Enter the 6-digit game PIN.'; return; }
+    if (!name) { errorText.textContent = 'Type a nickname first.'; return; }
+
+    joinBtn.disabled = true;
+    Audio.join();
+
+    const saved2 = JSON.parse(localStorage.getItem('qr_player') || 'null');
+    const payload = { pin, name };
+    if (saved2 && saved2.pin === pin) payload.playerId = saved2.playerId;
+
+    $('#joinForm').classList.add('hidden');
+    $('#joinSpinner').classList.remove('hidden');
+
+    const res = await post('/api/join', payload);
+    if (!res.ok) {
+      $('#joinSpinner').classList.add('hidden');
+      $('#joinForm').classList.remove('hidden');
+      joinBtn.disabled = false;
+      if (res.error === 'bad_pin') errorText.textContent = 'No game found with that PIN. Check the screen.';
+      else if (res.error === 'in_progress') errorText.textContent = 'A question is running - try again in a few seconds.';
+      else if (res.error === 'no_game') errorText.textContent = 'The host has not started a game yet.';
+      else errorText.textContent = 'Could not join. Try again.';
+      return;
+    }
+
+    localStorage.setItem('qr_last_name', name);
+    localStorage.setItem('qr_player', JSON.stringify({ pin, playerId: res.playerId, token: res.token, name: res.name }));
+    window.location.href = '/play';
+  }
+
+  joinBtn.addEventListener('click', doJoin);
+</script>
+</body>
+</html>

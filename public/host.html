@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#1a0c3d" />
+<title>QuizRush - Host</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%237c4dff'/><stop offset='1' stop-color='%235b1fb0'/></linearGradient></defs><rect width='100' height='100' rx='26' fill='url(%23g)'/><path d='M57 12 28 57h17l-4 31 29-46H55z' fill='%23ffd166'/></svg>" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="no-scroll">
+<div class="floaters" id="floaters"></div>
+
+<div class="screen host-screen">
+  <div class="host-header">
+    <h1 class="brand" style="font-size:30px">QuizRush<span class="dot">.</span></h1>
+    <div class="pin-box">
+      <span class="pin-label">Game PIN</span>
+      <span class="pin-value" id="pinValue">------</span>
+    </div>
+    <span class="pill" id="joinPill"></span>
+    <span class="spacer"></span>
+    <span class="pill" id="phasePill">Starting…</span>
+    <span class="pill" id="playersPill"></span>
+    <button class="pill" id="muteBtn" style="border:none;cursor:pointer;font-family:inherit" title="Mute sound"></button>
+  </div>
+
+  <div class="host-main" id="main">
+    <div class="center-screen" style="flex:1"><div class="spinner"></div></div>
+  </div>
+
+  <div class="host-footer" id="footer"></div>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/qr.js"></script>
+<script src="/js/host.js"></script>
+</body>
+</html>
